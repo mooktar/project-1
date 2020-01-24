@@ -132,7 +132,7 @@ def book(isbn):
     res = requests.get("https://www.goodreads.com/book/review_counts.json",
                        params={"key": gkey, "isbns": book.isbn}).json()
     reviews = db.execute(
-        "SELECT * FROM reviews WHERE book_id = :book_id", {"book_id": book.id}).fetchall()
+        "SELECT rating, message, name FROM reviwes JOIN users ON users.id = reviews.user_id WHERE book_id = :book_id", {"book_id": book.id}).fetchall()
 
     # Get users information and its relative post
     posted = False
@@ -161,7 +161,7 @@ def book(isbn):
 
         return redirect(url_for('book', isbn=book.isbn))
 
-    return render_template("book.html", book=book, res=res, reviews=reviews, user=user, posted=posted, error=error)
+    return render_template("book.html", book=book, res=res, reviews=reviews, posted=posted, error=error)
 
 
 @app.route("/api")
