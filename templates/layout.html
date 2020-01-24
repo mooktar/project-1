@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %} | Book</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        a,
+        a:hover,
+        a:focus {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+        <!-- NAVIGATION -->
+        <nav class="navbar navbar-expand navbar-dark bg-primary flex justify-content-between">
+            <div class="container">
+                <a class="navbar-brand text-white" href="{{ url_for('index') }}"><b>Book</b></a>
+                <div class="nav navbar-nav">
+                    {% if session.logged_in %}
+                    <a class="nav-item nav-link active text-capitalize">{{ session.username }}</a>
+                    <a class="nav-item nav-link text-uppercase" href="{{ url_for('logout' )}}">Logout</a>
+                    {% else %}
+                    <a class="nav-item nav-link text-uppercase active" href="{{ url_for('login' )}}">Login</a>
+                    <a class="nav-item nav-link text-uppercase" href="{{ url_for('register' )}}">Register</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+        <!-- BANNER -->
+        <div class="jumbotron text-center">
+            <div class="container">
+                <h1 class="display-5">{% block bannerTitle %}{% endblock %}</h1>
+                {% block bannerSearch %}{% endblock %}
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENT -->
+    <main>
+        <div class="container pt-4 pb-4">
+            <div class="row">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container pt-3 pb-3">
+            <p class="lead text-center">&copy; Book, CS50's project 1 by <a href=" mailto:mohmouktar@gmail.com">
+                    mooktar</a>.
+            </p>
+        </div>
+    </footer>
+
+    <!-- SCRIPT LINK -->
+    <script src="{{ url_for('static', filename='jquery-slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
